@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build / cache
+.vercel/
+.tanstack/
+.output/
+dist/
+.nitro/
+
+# Platform / local
+.grok/
+AGENTS.md
+*.log
+.env
+.env.*
+!.env.example
+
+# Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# QA / generated
+screenshots/
+artifacts/
+.tmp/
+
+# Sandbox lockfiles that aren't npm
+.node_modules.lock
+.project_id
