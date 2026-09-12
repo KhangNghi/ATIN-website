@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { cloneElement, isValidElement, useMemo, useState, type FormEvent, type ReactElement, type ReactNode } from "react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/layout/page-hero";
 import { SiteShell } from "@/components/layout/site-shell";
@@ -32,6 +32,7 @@ function ApplyPage() {
   const search = Route.useSearch();
   const [role, setRole] = useState<Role>(search.as ?? "investor");
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
   const company = useMemo(
     () => DEALS.find((d) => d.slug === search.company),
     [search.company],
@@ -42,10 +43,19 @@ function ApplyPage() {
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
-    if (!name || !email) {
-      toast.error("Name and email are required.");
+    const nextErrors: { name?: string; email?: string } = {};
+    if (!name) nextErrors.name = "Enter your full name.";
+    if (!email) nextErrors.email = "Enter an email address.";
+    if (Object.keys(nextErrors).length) {
+      setErrors(nextErrors);
+      document.getElementById(nextErrors.name ? "name" : "email")?.focus();
+      toast.error("Check the highlighted fields before sending.", {
+        duration: Infinity,
+        closeButton: true,
+      });
       return;
     }
+    setErrors({});
     setSent(true);
     toast.success("Application received.");
   }
@@ -72,7 +82,7 @@ function ApplyPage() {
           </div>
         ) : (
           <>
-            <div className="flex gap-8 border-b border-ink/10">
+            <div role="radiogroup" aria-label="I am applying as" className="flex gap-8 border-b border-ink/10">
               <RoleButton active={role === "investor"} onClick={() => setRole("investor")}>
                 I’m an angel
               </RoleButton>
@@ -121,10 +131,10 @@ function ApplyPage() {
               <input type="hidden" name="role" value={role} />
               <input type="hidden" name="company" value={search.company ?? ""} />
               <input type="hidden" name="event" value={search.event ?? ""} />
-              <Field id="name" label="Full name" required>
+              <Field id="name" label="Full name" required error={errors.name}>
                 <Input id="name" name="name" autoComplete="name" required />
               </Field>
-              <Field id="email" label="Email" required>
+              <Field id="email" label="Email" required error={errors.email}>
                 <Input id="email" name="email" type="email" autoComplete="email" required />
               </Field>
               {role === "investor" ? (
@@ -181,7 +191,7 @@ function ApplyPage() {
               <Button type="submit" size="lg" className="w-full sm:w-auto">
                 {role === "founder" ? "Submit application" : "Send a note"}
               </Button>
-              <p className="text-xs text-stone">
+              <p className="text-xs text-moss">
                 Applications are reviewed by AgeTech Capital. This form does
                 not create an offer, a commitment, or a client relationship.
               </p>
@@ -205,6 +215,8 @@ function RoleButton({
   return (
     <button
       type="button"
+      role="radio"
+      aria-checked={active}
       onClick={onClick}
       className={cn(
         "h-12 border-b-2 text-sm font-medium transition-colors duration-150",
@@ -222,20 +234,34 @@ function Field({
   id,
   label,
   required,
+  error,
   children,
 }: {
   id: string;
   label: string;
   required?: boolean;
+  error?: string;
   children: ReactNode;
 }) {
+  const errorId = `${id}-error`;
+  const control = isValidElement(children)
+    ? cloneElement(children as ReactElement<Record<string, unknown>>, {
+        "aria-invalid": error ? true : undefined,
+        "aria-describedby": error ? errorId : undefined,
+      })
+    : children;
   return (
     <div className="space-y-2">
       <Label htmlFor={id}>
         {label}
         {required ? <span className="text-sage"> *</span> : null}
       </Label>
-      {children}
+      {control}
+      {error ? (
+        <p id={errorId} className="text-sm text-destructive">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

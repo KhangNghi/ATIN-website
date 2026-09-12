@@ -113,7 +113,7 @@ function DealPage() {
                     params={{ slug: item.slug }}
                     className="border-t border-ink/10 py-6 no-underline"
                   >
-                    <p className="text-micro text-stone">{item.status}</p>
+                    <p className="text-micro text-moss">{item.status}</p>
                     <p className="font-display mt-2 text-2xl">{item.name}</p>
                     <p className="mt-2 text-sm text-moss">{item.tagline}</p>
                   </Link>
@@ -130,7 +130,7 @@ function DealPage() {
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-micro text-stone">{label}</dt>
+      <dt className="text-micro text-moss">{label}</dt>
       <dd className="mt-2 font-display text-xl">{value}</dd>
     </div>
   );

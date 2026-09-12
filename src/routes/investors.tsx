@@ -74,7 +74,7 @@ function InvestorsPage() {
           <Kicker>Membership, plainly</Kicker>
           <div className="mt-12 grid lg:grid-cols-3 lg:gap-12">
             <div className="border-t border-ink/10 py-8">
-              <p className="text-micro text-stone">Who</p>
+              <p className="text-micro text-moss">Who</p>
               <p className="font-display mt-3 text-2xl">Accredited investors</p>
               <p className="mt-3 text-sm leading-relaxed text-moss">
                 Accredited or near-accredited, finance-literate, including people
@@ -82,7 +82,7 @@ function InvestorsPage() {
               </p>
             </div>
             <div className="border-t border-ink/10 py-8">
-              <p className="text-micro text-stone">Fees</p>
+              <p className="text-micro text-moss">Fees</p>
               <p className="font-display mt-3 text-2xl">Membership plus deal fees</p>
               <p className="mt-3 text-sm leading-relaxed text-moss">
                 An annual membership fee, plus SPV administration, management,
@@ -91,7 +91,7 @@ function InvestorsPage() {
               </p>
             </div>
             <div className="border-t border-ink/10 py-8">
-              <p className="text-micro text-stone">Structure</p>
+              <p className="text-micro text-moss">Structure</p>
               <p className="font-display mt-3 text-2xl">Deal by deal, via SPV</p>
               <p className="mt-3 text-sm leading-relaxed text-moss">
                 ATIN handles the investment operations and keeps the company's

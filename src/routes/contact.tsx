@@ -14,14 +14,22 @@ export const Route = createFileRoute("/contact")({ component: ContactPage });
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string }>({});
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (!String(data.get("email") || "").trim()) {
-      toast.error("Email is required.");
+    const email = String(data.get("email") || "").trim();
+    if (!email) {
+      setErrors({ email: "Enter an email address." });
+      document.getElementById("email")?.focus();
+      toast.error("Check the highlighted field before sending.", {
+        duration: Infinity,
+        closeButton: true,
+      });
       return;
     }
+    setErrors({});
     setSent(true);
     toast.success("Message sent.");
   }
@@ -71,7 +79,21 @@ function ContactPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" autoComplete="email" required className="bg-paper" />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="bg-paper"
+                aria-invalid={errors.email ? true : undefined}
+                aria-describedby={errors.email ? "email-error" : undefined}
+              />
+              {errors.email ? (
+                <p id="email-error" className="text-sm text-destructive">
+                  {errors.email}
+                </p>
+              ) : null}
             </div>
             <div className="space-y-2">
               <Label htmlFor="topic">Topic</Label>

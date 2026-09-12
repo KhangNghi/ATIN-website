@@ -104,7 +104,7 @@ function AboutPage() {
           <ul className="mt-12 grid gap-x-12 gap-y-12 sm:grid-cols-2">
             {PARTNERS.map((person) => (
               <li key={person.name} className="border-t border-ink/10 pt-6">
-                <p className="text-micro text-stone">{person.title}</p>
+                <p className="text-micro text-moss">{person.title}</p>
                 <h3 className="font-display mt-2 text-3xl">{person.name}</h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-moss">{person.bio}</p>
               </li>

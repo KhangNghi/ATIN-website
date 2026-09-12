@@ -68,6 +68,7 @@ function OpportunitiesPage() {
             <Button
               type="button"
               variant={savedOnly ? "default" : "outline"}
+              aria-pressed={savedOnly}
               onClick={() => setSavedOnly((v) => !v)}
             >
               Watchlist{slugs.length ? ` (${slugs.length})` : ""}
@@ -138,14 +139,16 @@ function FilterRow({
 }) {
   return (
     <div className="mt-6">
-      <p className="text-micro text-stone">{label}</p>
-      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+      <p className="text-micro text-moss">{label}</p>
+      <div role="radiogroup" aria-label={label} className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
         {options.map((option) => {
           const active = option === value;
           return (
             <button
               key={option}
               type="button"
+              role="radio"
+              aria-checked={active}
               onClick={() => onChange(option)}
               className={cn(
                 "h-9 border-b text-sm transition-colors duration-150",

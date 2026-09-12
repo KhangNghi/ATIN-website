@@ -6,6 +6,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -53,7 +54,7 @@ function MarketPage() {
           <StatCard value="$12T" label="Projected U.S. 50+ contribution by 2030" />
           <StatCard value="12,000" label="People in the U.S. who turn 65 every day" />
         </div>
-        <p className="mt-4 text-xs text-stone">
+        <p className="mt-4 text-xs text-moss">
           Figures commonly cited by AARP and AgeTech operators. Use as sector
           context, not as a forecast of any single company.
         </p>
@@ -120,6 +121,11 @@ function MarketPage() {
                       tickFormatter={(v) => `$${v}T`}
                     />
                     <Tooltip contentStyle={tooltipStyle} formatter={(value) => [`$${value}T`, ""]} />
+                    <Legend
+                      wrapperStyle={{ fontSize: 12, color: "var(--color-moss)" }}
+                      iconType="circle"
+                      iconSize={8}
+                    />
                     <Bar dataKey="us" name="United States" fill="var(--color-sage)" radius={[2, 2, 0, 0]} />
                     <Bar dataKey="global" name="Global" fill="var(--color-stone)" radius={[2, 2, 0, 0]} />
                   </BarChart>

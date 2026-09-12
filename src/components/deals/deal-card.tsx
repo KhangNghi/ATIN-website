@@ -54,7 +54,7 @@ export function DealCard({
             <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
               {deal.summary}
             </p>
-            <p className="mt-8 flex items-center justify-between text-xs text-stone">
+            <p className="mt-8 flex items-center justify-between text-xs text-moss">
               <span>{deal.location}</span>
               <span>{deal.closed ?? deal.status}</span>
             </p>
@@ -79,7 +79,7 @@ export function DealCard({
           />
         </Link>
         <div className="pt-5 pr-2">
-          <p className="text-micro text-stone">{deal.sector}</p>
+          <p className="text-micro text-moss">{deal.sector}</p>
           <Link
             to="/opportunities/$slug"
             params={{ slug: deal.slug }}
@@ -128,7 +128,7 @@ export function DealCard({
           </div>
           <WatchButton saved={saved} onToggle={() => toggle(deal.slug)} />
         </div>
-        <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone">
+        <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-moss">
           <span>{deal.sector}</span>
           <span aria-hidden>·</span>
           <span>{deal.location}</span>

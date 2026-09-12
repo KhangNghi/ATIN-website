@@ -26,7 +26,7 @@ export function Logo({
       />
       <span
         className={cn(
-          "mt-0.5 text-[0.625rem] tracking-[0.16em] uppercase transition-colors duration-300",
+          "mt-0.5 text-[0.6875rem] tracking-[0.16em] uppercase transition-colors duration-300",
           inverted ? "text-mist" : "text-moss",
         )}
       >
