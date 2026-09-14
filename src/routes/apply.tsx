@@ -116,9 +116,10 @@ function ApplyPage() {
               <div className="mt-8">
                 <h2 className="font-display text-2xl">Founder application</h2>
                 <p className="mt-3 text-sm leading-relaxed text-moss">
-                  Submit the form below. We ask for a deck and a short intake.
-                  Companies that pass the AgeTech Capital filter go to the
-                  Expert Selection Committee. Up to three are selected per batch.
+                  Complete the application below. We ask for a deck and a short
+                  intake. Companies that pass the AgeTech Capital filter go to
+                  the Expert Selection Committee. Up to three are selected per
+                  batch.
                 </p>
               </div>
             )}
@@ -127,75 +128,78 @@ function ApplyPage() {
                 You are writing about <strong>{company.name}</strong>.
               </p>
             ) : null}
-            <form onSubmit={onSubmit} className="mt-10 space-y-5">
-              <input type="hidden" name="role" value={role} />
-              <input type="hidden" name="company" value={search.company ?? ""} />
-              <input type="hidden" name="event" value={search.event ?? ""} />
-              <Field id="name" label="Full name" required error={errors.name}>
-                <Input id="name" name="name" autoComplete="name" required />
-              </Field>
-              <Field id="email" label="Email" required error={errors.email}>
-                <Input id="email" name="email" type="email" autoComplete="email" required />
-              </Field>
-              {role === "investor" ? (
-                <>
-                  <Field id="org" label="Organization or family office">
-                    <Input id="org" name="org" />
-                  </Field>
-                  <Field id="check" label="Typical check size">
-                    <Input id="check" name="check" placeholder="Optional" />
-                  </Field>
-                  <Field id="sectors" label="Sectors of interest">
-                    <Input
-                      id="sectors"
-                      name="sectors"
-                      placeholder={SECTORS.map((s) => s.name).slice(0, 3).join(", ")}
-                    />
-                  </Field>
-                  <label className="flex items-start gap-3 bg-cream p-4 text-sm leading-relaxed">
-                    <input
-                      type="checkbox"
-                      name="accredited"
-                      required
-                      className="mt-1 size-4 accent-sage"
-                    />
-                    <span>
-                      I am an accredited investor under SEC guidelines, or I am
-                      authorized to apply on behalf of an entity that is.
-                    </span>
-                  </label>
-                </>
-              ) : (
-                <>
-                  <Field id="companyName" label="Company" required>
-                    <Input id="companyName" name="companyName" required />
-                  </Field>
-                  <Field id="website" label="Website">
-                    <Input id="website" name="website" type="url" placeholder="https://" />
-                  </Field>
-                  <Field id="stage" label="Stage and raise">
-                    <Input id="stage" name="stage" placeholder="Seed" />
-                  </Field>
-                  <Field id="source" label="How did you hear about ATIN?">
-                    <Input
-                      id="source"
-                      name="source"
-                      placeholder="Collaborative, referral, partner, inbound"
-                    />
-                  </Field>
-                </>
-              )}
-              <Field id="note" label="Anything we should know">
-                <Textarea id="note" name="note" rows={5} />
-              </Field>
-              <Button type="submit" size="lg" className="w-full sm:w-auto">
-                {role === "founder" ? "Submit application" : "Send a note"}
-              </Button>
-              <p className="text-xs text-moss">
-                Applications are reviewed by AgeTech Capital. This form does
-                not create an offer, a commitment, or a client relationship.
-              </p>
-            </form>
+            {role === "founder" ? (
+              <div className="mt-10">
+                <div className="overflow-hidden rounded-sm border border-ink/10 bg-cream shadow-border">
+                  <iframe
+                    title="Founder application form"
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSdYwsMalbC2kd254rIKYcXqNV-PmY7EH8XouMv0g1J_Cqgn3g/viewform?embedded=true"
+                    className="h-[1400px] w-full"
+                    loading="lazy"
+                  >
+                    Loading…
+                  </iframe>
+                </div>
+                <p className="mt-4 text-sm text-moss">
+                  Trouble loading the form?{" "}
+                  <a
+                    className="text-sage underline-offset-2 hover:underline"
+                    href="https://forms.gle/unnQQHC7W3uxL4cQ9"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open it in a new tab
+                  </a>
+                  .
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={onSubmit} className="mt-10 space-y-5">
+                <input type="hidden" name="company" value={search.company ?? ""} />
+                <input type="hidden" name="event" value={search.event ?? ""} />
+                <Field id="name" label="Full name" required error={errors.name}>
+                  <Input id="name" name="name" autoComplete="name" required />
+                </Field>
+                <Field id="email" label="Email" required error={errors.email}>
+                  <Input id="email" name="email" type="email" autoComplete="email" required />
+                </Field>
+                <Field id="org" label="Organization or family office">
+                  <Input id="org" name="org" />
+                </Field>
+                <Field id="check" label="Typical check size">
+                  <Input id="check" name="check" placeholder="Optional" />
+                </Field>
+                <Field id="sectors" label="Sectors of interest">
+                  <Input
+                    id="sectors"
+                    name="sectors"
+                    placeholder={SECTORS.map((s) => s.name).slice(0, 3).join(", ")}
+                  />
+                </Field>
+                <label className="flex items-start gap-3 bg-cream p-4 text-sm leading-relaxed">
+                  <input
+                    type="checkbox"
+                    name="accredited"
+                    required
+                    className="mt-1 size-4 accent-sage"
+                  />
+                  <span>
+                    I am an accredited investor under SEC guidelines, or I am
+                    authorized to apply on behalf of an entity that is.
+                  </span>
+                </label>
+                <Field id="note" label="Anything we should know">
+                  <Textarea id="note" name="note" rows={5} />
+                </Field>
+                <Button type="submit" size="lg" className="w-full sm:w-auto">
+                  Send a note
+                </Button>
+                <p className="text-xs text-moss">
+                  Applications are reviewed by AgeTech Capital. This form does
+                  not create an offer, a commitment, or a client relationship.
+                </p>
+              </form>
+            )}
           </>
         )}
       </section>

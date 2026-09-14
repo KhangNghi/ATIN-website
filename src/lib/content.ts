@@ -96,7 +96,6 @@ export const DEALS: Deal[] = [
     location: "United States",
     status: "In portfolio",
     featured: true,
-    exit: true,
     closed: "February 2025",
     summary:
       "Legally valid wills, trusts, and end-of-life documents completed fully online, designed so more families actually finish the work.",
